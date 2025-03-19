@@ -1,0 +1,17 @@
+name: "DIDimo Test Runner"
+description: "Runs credential issuance and wallet tests using credimi toolkit"
+inputs:
+  command:
+    description: "The credimi command to run"
+    required: true
+  temporal_grpc_endpoint:
+    description: "External Temporal server address (required for wallet tests)"
+    required: false
+    default: "temporal:7233"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    TEMPORAL_GRPC_ENDPOINT: ${{ inputs.temporal_grpc_endpoint }}
+  args:
+    - ${{ inputs.command }}
